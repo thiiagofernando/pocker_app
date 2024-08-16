@@ -21,6 +21,7 @@ class ResetPasswordViewModel {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Link de recuperação de senha enviado para $email')),
       );
+      Navigator.pushReplacementNamed(context, '/');
     } catch (e) {
       isLoading.value = false;
       errorMessage.value = e.toString();

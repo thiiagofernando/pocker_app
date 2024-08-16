@@ -15,6 +15,9 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Cadastre-se'),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -35,8 +38,15 @@ class RegisterScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   viewModel.register(context, _emailController.text, _passwordController.text);
+                  Navigator.pushReplacementNamed(context, '/');
                 },
                 child: const Text('Registrar'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/');
+                },
+                child: const Text('Voltar'),
               ),
               const SizedBox(height: 20),
               ValueListenableBuilder<String?>(

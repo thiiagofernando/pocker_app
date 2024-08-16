@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pocker_app/core/utils/validators.dart';
 import 'package:pocker_app/presentation/viewmodels/login_view_model.dart';
+import 'package:pocker_app/presentation/views/register_screen.dart';
 import 'package:pocker_app/presentation/widgets/custom_text_field.dart';
+
+import 'reset_password_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -82,7 +85,12 @@ class LoginScreen extends StatelessWidget {
                     return isLoading
                         ? const CircularProgressIndicator()
                         : TextButton(
-                            onPressed: () async {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ResetPasswordScreen()),
+                              );
+                            },
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.symmetric(vertical: buttonHeight * 0.4),
                               minimumSize: Size(double.infinity, buttonHeight),
@@ -103,7 +111,12 @@ class LoginScreen extends StatelessWidget {
                     return isLoading
                         ? const CircularProgressIndicator()
                         : TextButton(
-                            onPressed: () async {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => RegisterScreen()),
+                              );
+                            },
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.symmetric(vertical: buttonHeight * 0.4),
                               minimumSize: Size(double.infinity, buttonHeight),

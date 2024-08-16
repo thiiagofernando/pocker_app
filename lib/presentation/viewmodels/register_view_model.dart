@@ -10,6 +10,7 @@ class RegisterViewModel {
   final ValueNotifier<bool> isLoading = ValueNotifier(false);
   final ValueNotifier<String?> errorMessage = ValueNotifier(null);
 
+
   Future<void> register(BuildContext context, String email, String password) async {
     isLoading.value = true;
     errorMessage.value = null;

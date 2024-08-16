@@ -13,6 +13,9 @@ class ResetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Recuperar Senha'),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -25,10 +28,16 @@ class ResetPasswordScreen extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               ElevatedButton(
-                onPressed: () {
-                  viewModel.resetPassword(context, _emailController.text);
+                onPressed: () async {
+                  await viewModel.resetPassword(context, _emailController.text);
                 },
                 child: const Text('Recuperar Senha'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/');
+                },
+                child: const Text('Voltar'),
               ),
               const SizedBox(height: 20),
               ValueListenableBuilder<String?>(
