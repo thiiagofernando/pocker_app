@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pocker_app/core/utils/validators.dart';
 import 'package:pocker_app/presentation/viewmodels/login_view_model.dart';
 import 'package:pocker_app/presentation/widgets/custom_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
-  final LoginViewModel viewModel;
-  LoginScreen({super.key, required this.viewModel});
+  LoginScreen({super.key});
+
+  final LoginViewModel viewModel = GetIt.I<LoginViewModel>();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final double paddingHorizontal = screenWidth * 0.1;
+    final double paddingVertical = screenHeight * 0.05;
+    final double buttonHeight = screenHeight * 0.07;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
+      body: Center(
+        child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.symmetric(horizontal: paddingHorizontal, vertical: paddingVertical),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -25,17 +32,16 @@ class LoginScreen extends StatelessWidget {
                   label: 'E-mail',
                   isPassword: false,
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
+                SizedBox(height: screenHeight * 0.02),
                 CustomTextField(
-                  controller: _emailController,
+                  controller: _passwordController,
                   label: 'Senha',
                   isPassword: true,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
+                SizedBox(height: screenHeight * 0.04),
                 ValueListenableBuilder<bool>(
                   valueListenable: viewModel.isLoading,
                   builder: (context, isLoading, child) {
@@ -44,9 +50,10 @@ class LoginScreen extends StatelessWidget {
                         : ElevatedButton(
                             onPressed: () async {
                               final emailError = Validators.validateEmail(_emailController.text);
-                              final passwordError = Validators.validateEmail(_passwordController.text);
+                              final passwordError = Validators.validatePassword(_passwordController.text);
                               if (emailError == null && passwordError == null) {
                                 await viewModel.login(
+                                  context,
                                   _emailController.text,
                                   _passwordController.text,
                                 );
@@ -54,17 +61,71 @@ class LoginScreen extends StatelessWidget {
                                 viewModel.errorMessage.value = emailError ?? passwordError;
                               }
                             },
-                            child: const Text('Entrar'),
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(vertical: buttonHeight * 0.4),
+                              minimumSize: Size(double.infinity, buttonHeight),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                            ),
+                            child: Text(
+                              'Entrar',
+                              style: TextStyle(fontSize: screenHeight * 0.025),
+                            ),
                           );
                   },
                 ),
+                SizedBox(height: screenHeight * 0.04),
+                ValueListenableBuilder<bool>(
+                  valueListenable: viewModel.isLoading,
+                  builder: (context, isLoading, child) {
+                    return isLoading
+                        ? const CircularProgressIndicator()
+                        : TextButton(
+                            onPressed: () async {},
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(vertical: buttonHeight * 0.4),
+                              minimumSize: Size(double.infinity, buttonHeight),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                            ),
+                            child: const Text(
+                              'Esqueci minha senha',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          );
+                  },
+                ),
+                ValueListenableBuilder<bool>(
+                  valueListenable: viewModel.isLoading,
+                  builder: (context, isLoading, child) {
+                    return isLoading
+                        ? const CircularProgressIndicator()
+                        : TextButton(
+                            onPressed: () async {},
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(vertical: buttonHeight * 0.4),
+                              minimumSize: Size(double.infinity, buttonHeight),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                            ),
+                            child: const Text(
+                              'Ainda não tem conta? Cadastre-se',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          );
+                  },
+                ),
+                SizedBox(height: screenHeight * 0.02), // 2% da altura da tela
                 ValueListenableBuilder<String?>(
                   valueListenable: viewModel.errorMessage,
                   builder: (context, errorMessage, child) {
                     return errorMessage != null
                         ? Text(
                             errorMessage,
-                            style: const TextStyle(color: Colors.red),
+                            style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.02),
                           )
                         : Container();
                   },

@@ -10,11 +10,44 @@ class FirebaseAuthRepository implements AuthRepository {
   );
 
   @override
-  Future<void> signInWithEmailAndPassword(String email, String password) async {
+  Future<void> signIn(String email, String password) async {
     try {
-      await _firebaseAuthDataSource.signInWithEmailAndPassword(email, password);
+      await _firebaseAuthDataSource.signIn(email, password);
     } on FirebaseAuthException catch (e) {
       throw AuthenticationException('Erro ao Autenticacar: ${e.message}');
+    } catch (e) {
+      throw ServerException('Erro no servidor: ${e.toString}');
+    }
+  }
+
+  @override
+  Future<void> register(String email, String password) async {
+    try {
+      await _firebaseAuthDataSource.register(email, password);
+    } on FirebaseAuthException catch (e) {
+      throw AuthenticationException('Erro ao se registrar: ${e.message}');
+    } catch (e) {
+      throw ServerException('Erro no servidor: ${e.toString}');
+    }
+  }
+
+  @override
+  Future<void> resetPassword(String email) async {
+    try {
+      await _firebaseAuthDataSource.resetPassword(email);
+    } on FirebaseAuthException catch (e) {
+      throw AuthenticationException('Erro ao resetar a senha: ${e.message}');
+    } catch (e) {
+      throw ServerException('Erro no servidor: ${e.toString}');
+    }
+  }
+
+  @override
+  Future<void> signOut() async {
+    try {
+      await _firebaseAuthDataSource.signOut();
+    } on FirebaseAuthException catch (e) {
+      throw AuthenticationException('Erro ao sair do sistemas: ${e.message}');
     } catch (e) {
       throw ServerException('Erro no servidor: ${e.toString}');
     }

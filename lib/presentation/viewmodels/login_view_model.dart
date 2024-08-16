@@ -9,14 +9,18 @@ class LoginViewModel {
 
   LoginViewModel(this._signInUsecase);
 
-  Future<void> login(String email, String password) async {
+  Future<void> login(BuildContext context, String email, String password) async {
     isLoading.value = true;
     errorMessage.value = null;
     try {
       await _signInUsecase.call(email, password);
+      isLoading.value = false;
+      if (!context.mounted) return;
+      Navigator.pushReplacementNamed(context, '/home');
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'invalid-email':
+        case 'invalid-credential':
           errorMessage.value = 'O email informado é inválido.';
           break;
         case 'user-disabled':

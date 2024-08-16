@@ -12,7 +12,6 @@ android {
     namespace = "io.github.thiiagofernando.pocker_app.pocker_app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -27,7 +26,7 @@ android {
         applicationId = "io.github.thiiagofernando.pocker_app.pocker_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        minSdk = 23 //flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

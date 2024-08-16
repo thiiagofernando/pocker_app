@@ -8,7 +8,7 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.controller,
     required this.label,
-    required this.isPassword,
+    this.isPassword = false,
   });
 
   @override
