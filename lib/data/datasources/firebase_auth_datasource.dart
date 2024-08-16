@@ -4,8 +4,7 @@ class FirebaseAuthDataSource {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future<void> signIn(String email, String password) async {
-    var user = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-    print('user $user');
+    await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
   }
 
   Future<void> register(String email, String password) async {
@@ -18,5 +17,9 @@ class FirebaseAuthDataSource {
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
+  }
+
+  User? getCurrentUser() {
+    return _firebaseAuth.currentUser;
   }
 }

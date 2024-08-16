@@ -21,4 +21,13 @@ class Validators {
     }
     return null;
   }
+
+  static String formatName(String email) {
+    String username = email.split('@')[0];
+    String formattedUsername = username.replaceAll('.', ' ');
+    String capitalizedUsername = formattedUsername.split(' ').map((word) {
+      return word[0].toUpperCase() + word.substring(1);
+    }).join(' ');
+    return capitalizedUsername;
+  }
 }

@@ -52,4 +52,9 @@ class FirebaseAuthRepository implements AuthRepository {
       throw ServerException('Erro no servidor: ${e.toString}');
     }
   }
+
+  @override
+  User? getCurrentUser() {
+    return _firebaseAuthDataSource.getCurrentUser();
+  }
 }

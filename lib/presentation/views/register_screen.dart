@@ -17,6 +17,7 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cadastre-se'),
+        centerTitle: true,
       ),
       body: Center(
         child: Padding(

@@ -25,12 +25,15 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LoginScreen(),
-        '/home': (context) => const HomeScreen(),
+        '/home': (context) => HomeScreen(),
         '/register': (context) => RegisterScreen(),
         '/reset-password': (context) => ResetPasswordScreen(),
       },
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          primary: Colors.deepPurple,
+        ),
         useMaterial3: false,
       ),
     );

@@ -15,6 +15,7 @@ class ResetPasswordScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Recuperar Senha'),
+        centerTitle: true,
       ),
       body: Center(
         child: Padding(
